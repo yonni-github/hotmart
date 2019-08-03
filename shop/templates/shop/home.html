@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{%  block body %}
+        <!-- Header -->
+    <header class="masthead bg-primary text-white text-center">
+      <div class="container">
+        <img class="img-fluid mb-5 d-block mx-auto" src="{% static 'img/home-logo.png' %}" alt="">
+        <h1 class="text-uppercase mb-0">Catchy Header idk..</h1>
+        <hr class="star-light">
+        <h2 class="font-weight-light mb-0">Online Shopping - Shop by Aisle - Shop by History</h2>
+      </div>
+    </header>
+
+    <!-- Portfolio Grid Section -->
+    <section class="portfolio" id="portfolio">
+      <div class="container">
+        <h2 class="text-center text-uppercase text-secondary mb-0">Shop Category</h2>
+        <hr class="star-dark mb-5">
+        <div class="row">
+          <div class="col-md-6 col-lg-4">
+            <a class="portfolio-item d-block mx-auto" href="#">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i>Shop home products</i>
+                </div>
+              </div>
+              <img class="img-fluid" src="{% static 'img/portfolio/cabin.png' %}" alt="">
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <a class="portfolio-item d-block mx-auto" href="#">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i>Shop Food</i>
+                </div>
+              </div>
+              <img class="img-fluid" src="{% static 'img/portfolio/cake.png' %}" alt="">
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <a class="portfolio-item d-block mx-auto" href="#">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i class="">Shop Electronics</i>
+                </div>
+              </div>
+              <img class="img-fluid" src="{% static 'img/portfolio/game.png' %}" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+{%  endblock %}

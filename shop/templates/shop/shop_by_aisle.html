@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static  %}
+
+{%block head %}
+{%endblock%}
+
+{% block body %}
+    <section class="portfolio ml-2 mr-2" >
+      <div class="container-fluid">
+        <h2 class="text-center text-uppercase text-secondary mb-0">Shop by Aisle</h2>
+        <hr class="star-dark mb-5">
+        <div class="row">
+          {% for category in all_categories%}
+          <div class="col-md-6 col-lg-4">
+            <a class=" d-block mx-auto" href="{{category.slug}}">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i>{{category}}</i>
+                </div>
+              </div>
+              <img class="img-fluid" src="{{category.category_image.url}}" alt="">
+            </a>
+          </div>
+          {%endfor%}
+        </div>
+      </div>
+    </section>
+{%endblock%}

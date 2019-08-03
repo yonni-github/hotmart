@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load static  %}
+{% load namify %}
+
+{% block head %}
+    <style type="text/css">
+        .banner-image {
+            height: 40%;
+            object-fit: cover;
+            float:right;
+        }
+
+        .banner {
+            background: linear-gradient(to right, #ccccb3 , #ffffff);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .product-image {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-category {
+            background: linear-gradient(to top, #ccccb3 , #ffffff);
+        }
+
+        a:link {
+            color:black;
+        }
+
+        a:hover {
+            color:hotpink;
+        }
+
+        .product-categories{
+            font-size:18px;
+            line-height:2;
+            font-weight:bold;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 22vw;
+            object-fit: cover;
+        }
+
+        .item-title {
+            padding: 10px 10px 0px 10px;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.33;
+            letter-spacing: -0.1px;
+            overflow: hidden;
+            display: block;
+            height:53px;
+
+        }
+
+        .price {
+            font-size:25px;
+            font-weight:600;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+<div class="container-fluid ml-2 mr-2" style="padding-top:25px;">
+    <div class="row banner mb-5">
+        <div class="col-xs-2 col-md-3">
+            <h1>{{instance}}</h1>
+        </div>
+        <div class="col-xs-10 col-md-6 offset-md-3">
+            <img class="banner-image" src="{{instance.category_image.url}}">
+        </div>
+    </div>
+    {% if  instance.children.all %}
+    <div class="row">
+        {% for i in instance.children.all %}
+        <div class="col-md-4 col-lg-3 mt-5">
+            <a href="{{i.slug}}">
+                <div class="card mb-4 border-0 card-category">
+                    <div class="card-block">
+                        <div class="card-title">
+                            <h2 style="text-align:center;">{{i.name}}</h2>
+                        </div>
+                        <img class="card-img product-image" src="{{i.category_image.url}}">
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {%endif%}
+    <!-- If Category instance selected lead to items, then view all the items in that category -->
+    {% if  instance.item_set.all %}
+    <div class="row">
+        <div class="col-sm-12 col-lg-2 product-categories mr-4 d-none d-md-block">
+            <h2>{{instance.parent}}</h2>
+            {%for i in instance.parent.children.all%}
+                <a href="/shop/shop-by-aisle/{{i.parent.parent.slug}}/{{i.parent.slug}}/{{i.slug}}">
+                    <div class="product-categories">{{i.name}}</div>
+                </a>
+            {%endfor%}
+        </div>
+        <div class="col-lg-9">
+            <div class="row mb-5">
+            {% for i in instance.item_set.all %}
+             <div class="col-sm-6 col-md-4 mb-5">
+                    <div class="card text-center border-0">
+                        <a href="#{{i.pk}}" data-toggle="modal">
+                       <img class="card-img-top" src="{{i.item_image.url}}" alt="Card image cap" style="max-height:320px;">
+                      <div class="card-body">
+                          <a class="item-title" data-toggle="modal" href="#{{i.pk}}">
+                              <div class="card-title" style="display: inline-block; text-align: left;">{{ i.name | truncatechars:40}}</div><br/>
+                          </a>
+                          <br/>
+                          <div class="price">$ {{i.price}}</div>
+                          <br/>
+                          <button type="button" class="btn btn-primary" data-toggle="modal" style="width:100%;">
+                          ADD
+                          </button>
+                      </div>
+                        </a>
+                    </div>
+             </div>
+            <!-- Modal -->
+            <div class="modal fade bd-example-modal-lg" id="{{i.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{i.name}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                    <div class="modal-body">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-md-6">
+                              <img class="card-img-top" src="{{i.item_image.url}}" alt="Card image cap">
+                          </div>
+                          <div class="col-md-5 ml-auto mt-5">
+                              <div class="price">{{i.name}}</div><br/>
+                              <div class="price">$ {{i.price}}</div><br/>
+                              <button type="button" class="btn btn-primary">ADD TO CART</button>
+                          </div>
+                        </div>
+                        <div class="row mt-3">
+                          <div class="col-md-4 ml-auto item-details">PRODUCER</div>
+                          <div class="col-md-8 ml-auto item-details">{{i.producer}}</div>
+                        </div>
+                        <div class="row mt-3">
+                          <div class="col-md-4 ml-auto">DESCRIPTION</div>
+                          <div class="col-md-8 ml-auto">{{i.description}}</div>
+                        </div>
+                        <div class="row mt-3">
+                          <div class="col-md-4 ml-auto">INGREDIENTS</div>
+                          <div class="col-md-8 ml-auto">{{i.ingredients}}</div>
+                        </div>
+                        <div class="row mt-3">
+                          <div class="col-md-4 ml-auto">PRODUCT DETAILS</div>
+                          <div class="col-md-8 ml-auto">{{i.product_details}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{%endblock%}

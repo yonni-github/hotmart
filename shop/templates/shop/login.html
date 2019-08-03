@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <style type="text/css">
+        .login-form-background {
+            background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("/static/img/portfolio/login-wallpaper.jpg");
+            background-repeat:no-repeat;
+            background-size: cover;
+        }
+
+        .login-info {
+                align:center;
+                display:block;
+                padding: 2.5rem;
+                border-width: .2rem;
+        }
+
+        .google-login {
+            font-size:25px;
+            text-align:center;
+            margin:0 auto;
+        }
+
+        img{
+            opacity: 0.7;
+        }
+
+        img:hover{
+            opacity: 1;
+        }
+
+    </style>
+{% endblock %}
+{% block body %}
+<section class="login-form-background">
+    <div class = "mx-auto col-lg-5 login-info">
+        <div class="card">
+            <div class="card-block" style="padding:25px;">
+                <form  method="post" style="text-align:center;">
+                    <h2>Login to HotMart</h2><br/>
+                    <div class="form-group" style="text-align:center;">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button class= "btn btn-primary" type="submit" style="width:50%;">
+                            Log in
+                        </button>
+                        <div>Don't have an account? <a href="/shop/register">Register</a></div>
+                        <br/><br/>
+                        <div class = "google-login">
+                            <span>-- OR --</span>
+                            <br/>
+                        <div><a href="{% url 'social:begin' 'google-oauth2' %}"><img src="{% static 'img/portfolio/google-sign-in.png'%}"></a></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock%}

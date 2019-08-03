@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <style type="text/css">
+
+        .register{
+           width: 45%;
+           height:75%;
+           margin: 0 auto;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container" style="padding:30px;">
+        <div class="card" id="register-card" style="padding:50px;">
+            <h1>Sign up now</h1>
+            <div class="register">
+                <form method="post">
+                    {% csrf_token %}
+                    {{form.as_table}}
+                    <br/>
+                    <button type="submit" class="btn btn-success">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load namify %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<div style="padding-top:60px; padding-bottom:50px;">
+  <div class="column">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        {% for i in item_instance.get_slug_list_for_categories %}
+           <li class="breadcrumb-item"><a href="/shop/shop-by-aisle/{{ i }}">{{ i | get_name }}</a></li>
+        {% endfor %}
+    </ul>
+      <h3><strong> {{item_instance}}</strong></h3>
+      <img src="{{item_instance.item_image.url}}">
+      <div > {{ item_instance.content | safe }} </div>
+      <div>
+          <h4>Description:</h4>
+          <span>{{item_instance.description}}</span>
+      </div>
+      <div>
+          <h4>Product Details:</h4>
+          <span>{{item_instance.product_details}}</span>
+      </div>
+      <div>
+          <h4>Ingredients:</h4>
+          <span>{{item_instance.ingredients}}</span>
+      </div>
+      <div>
+          <h4>Producer:</h4>
+          <span>{{item_instance.producer}}</span>
+      </div>
+      <div>$ {{item_instance.price}}</div>
+      <button class="btn btn-danger">Add to Cart</button>
+  </div>
+</div>
+{% endblock %}
